@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Persona{% endblock %}
+
+{% block body %}
+    <h1>Persona</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ persona.id }}</td>
+            </tr>
+            <tr>
+                <th>NomDuGroupe</th>
+                <td>{{ persona.NomDuGroupe }}</td>
+            </tr>
+            <tr>
+                <th>Origine</th>
+                <td>{{ persona.Origine }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ persona.Ville }}</td>
+            </tr>
+            <tr>
+                <th>AnneeDebut</th>
+                <td>{{ persona.AnneeDebut }}</td>
+            </tr>
+            <tr>
+                <th>AnneeSeparation</th>
+                <td>{{ persona.AnneeSeparation }}</td>
+            </tr>
+            <tr>
+                <th>Fodateurs</th>
+                <td>{{ persona.Fodateurs }}</td>
+            </tr>
+            <tr>
+                <th>Members</th>
+                <td>{{ persona.Members }}</td>
+            </tr>
+            <tr>
+                <th>CourantMusical</th>
+                <td>{{ persona.CourantMusical }}</td>
+            </tr>
+            <tr>
+                <th>Presentation</th>
+                <td>{{ persona.Presentation }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_persona_index') }}">back to list</a>
+
+    <a href="{{ path('app_persona_edit', {'id': persona.id}) }}">edit</a>
+
+    {{ include('persona/_delete_form.html.twig') }}
+{% endblock %}

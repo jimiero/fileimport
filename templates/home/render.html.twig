@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload file{% endblock %}
+
+{% block content %}
+    <h3> Personnalité list</h3>
+    <hr />
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            {% for headLine in header %}
+                <th> {{ headLine }}</th>
+            {% endfor %}
+            <th> Actions</th>
+        </tr>
+        </thead>
+
+        {% for key, person in personas %}
+            <tr>
+                <td> {{ person.getNomDuGroupe }} </td>
+                <td> {{ person.getOrigine }} </td>
+                <td> {{ person.getVille }} </td>
+                <td> {{ person.getAnneeDebut }} </td>
+                <td> {{ person.getAnneeSeparation }} </td>
+                <td> {{ person.getFodateurs }} </td>
+                <td> {{ person.getMembers }} </td>
+                <td> {{ person.getCourantMusical }} </td>
+                <td> {{ person.getPresentation }} </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button"  @onclick="editProject({{ person.getId() }})"> class="btn btn-sm btn-primary">Edit</button>
+                        <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        {#    {% for key, row in spreadData %}#}
+        {#        {{  dump(row) }}#}
+        {#        <tr>#}
+        {#            {% for personaData in row %}#}
+        {#                <td> {{ personaData }} </td>#}
+        {#            {% endfor %}#}
+
+        {#        </tr>#}
+
+        {#    {% endfor %}#}
+    </table>
+
+{% endblock %}

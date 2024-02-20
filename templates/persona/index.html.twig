@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Persona index{% endblock %}
+
+{% block body %}
+    <h1>Persona index</h1>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomDuGroupe</th>
+                <th>Origine</th>
+                <th>Ville</th>
+                <th>AnneeDebut</th>
+                <th>AnneeSeparation</th>
+                <th>Fodateurs</th>
+                <th>Members</th>
+                <th>CourantMusical</th>
+                <th>Presentation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for persona in personas %}
+            <tr>
+                <td>{{ persona.id }}</td>
+                <td>{{ persona.NomDuGroupe }}</td>
+                <td>{{ persona.Origine }}</td>
+                <td>{{ persona.Ville }}</td>
+                <td>{{ persona.AnneeDebut }}</td>
+                <td>{{ persona.AnneeSeparation }}</td>
+                <td>{{ persona.Fodateurs }}</td>
+                <td>{{ persona.Members }}</td>
+                <td>{{ persona.CourantMusical }}</td>
+                <td>{{ persona.Presentation }}</td>
+                <td>
+                    <a href="{{ path('app_persona_show', {'id': persona.id}) }}">show</a>
+                    <a href="{{ path('app_persona_edit', {'id': persona.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_persona_new') }}">Create new</a>
+{% endblock %}

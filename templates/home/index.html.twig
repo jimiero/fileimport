@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload file{% endblock %}
+
+{% block content %}
+    <div class="container-table">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Uploaded files:</h3>
+
+                        <ul  class="list-group" ng-repeat="file in deposers">
+                            <li class="list-group-item">
+                                <a href="#" ng-click="getFile(file.id)">{[{ file.name }]} </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <form>
+                        <span class="control-fileupload">
+                          <label for="file">Choose a file :</label>
+                            <input type="file" valid-file ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+                            <input type="hidden" name="token" ng-model="token" value="{{ csrf_token('upload') }}" />
+                            </span>
+                        <button class="btn btn-sm btn-primary m-3" style="margin-top:5px" ng-click="uploadFile()">upload me</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <hr>
+                    <div class="col-md-8">
+                        <strong>Personals</strong>
+                    </div>
+
+                    <span class="clearfix"></span>
+                    <hr>
+                </div>
+                <div class="alert alert-info" ng-if="message">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {[{ message }]}
+                </div>
+                <div class="alert alert-warning" ng-if="errors">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <p>File upload failed with following errors: </p>
+                    {[{ errors }]}
+                </div>
+
+                <div class="alert alert-success" ng-if="fileLoaded">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <p>File content loaded: </p>
+                </div>
+                <div class="row">
+                    <table class="table table-striped" >
+                        <thead>
+                        <tr>
+                            <th ng-repeat="head in personas.headers">{[{ head }]}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="persona in personas">
+                            <td>{[{ persona.nomeDuGroupe }]}</td>
+                            <td>{[{ persona.origine }]}</td>
+                            <td>{[{ persona.ville }]}</td>
+                            <td>{[{ persona.anne }]}</td>
+                            <td>{[{ persona.separation }]}</td>
+                            <td>{[{ persona.fondateurs }]}</td>
+                            <td>{[{ persona.memberes }]}</td>
+                            <td>{[{ persona.courant }]}</td>
+                            <td>{[{ persona.presentation }]}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit" ng-click="selectPersona(persona)">Edit</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete" ng-click="selectPersona(persona)">Delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="edit" role="dialog">
+        <div class="modal-dialog modal-md">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">EDIT Persona</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group" ng-repeat="(key, head) in clickedPersona.headers">
+                            <label class="control-label col-sm-3" for="{[{  head }]}">{[{ head }]}</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="cfname" id="{[{key}]}_id" placeholder="Enter {[{  head }]}" ng-model="clickedPersona[clickedPersona.updatedHeaders[key]]">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-info" ng-click="updatePersona(persona)" data-dismiss="modal">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="delete" role="dialog">
+        <div class="modal-dialog modal-md">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">DELETE Persona</h4>
+                </div>
+                <div class="modal-body">
+                    <span>Do You Want To Delete This Persona Permanently ?</span><br>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deletePersona()">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
