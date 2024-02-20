@@ -16,4 +16,4 @@ Installation
 - run `php bin/console doctrine:migrations:migrate`
 - run `symfony server:start`
 - open file located in: /public/angular/app.js - and change the `var URL` to your localhost path
-- Download the `test.xlsx` file and use it foe upload, app is hardcoded to work only with this file
+- Download the `test.xlsx` file and use it for upload, app is hardcoded to work only with this file
